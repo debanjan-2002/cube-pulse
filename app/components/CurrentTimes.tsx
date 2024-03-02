@@ -1,20 +1,27 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import React from "react";
+import React, { useState } from "react";
 
-const tags = Array.from({ length: 50 }).map((_, i, a) => `10.${a.length - i}`);
+// const tags = ;
 
-const CurrentTimes = () => {
+interface CurrentTimeProps {
+    times: string[];
+}
+
+const CurrentTimes = ({ times }: CurrentTimeProps) => {
+    // console.log(times);
+
+    // console.log("Hello");
     return (
         <ScrollArea className="w-full rounded-md border">
             <div className="p-5">
                 <h4 className="mb-8 font-medium leading-none text-center">
                     Current Session
                 </h4>
-                {tags.map(tag => (
+                {times.map((time, i) => (
                     <>
-                        <div key={tag} className="text-center">
-                            {tag}
+                        <div key={i} className="text-center">
+                            {time}
                         </div>
                         <Separator className="my-4" />
                     </>
