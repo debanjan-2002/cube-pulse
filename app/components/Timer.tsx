@@ -30,10 +30,9 @@ const Timer = () => {
 
             const time = `${seconds}.${miliseconds.toString().slice(0, 2)}`;
             session?.updateSessionTimes(time);
-
-            setMiliseconds(0);
-            setSeconds(0);
         } else {
+            setSeconds(0);
+            setMiliseconds(0);
             setIsTimerRunning(true);
 
             milisecondsRef.current = setInterval(() => {
