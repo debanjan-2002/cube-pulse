@@ -2,23 +2,33 @@
 
 import SessionSelector from "./SessionSelector";
 import NewSession from "./NewSession";
-import { useState } from "react";
+import { useTimer } from "../hooks/useTimer";
+import { useSession } from "../contexts/SessionContext";
 
 const Session = () => {
-    const [sessions, setSessions] = useState([
-        { sessionName: "Session 1" },
-        { sessionName: "Session 2" },
-        { sessionName: "Session 3" },
-        { sessionName: "Session 4" }
-    ]);
+    const {
+        getSessionNames,
+        getSessionId,
+        getCurrentSessionId,
+        getSessionName
+    } = useTimer();
+
+    const session = useSession();
+
+    const sessionNames = getSessionNames();
+    const currentSessionId = getCurrentSessionId();
+    const currentSessionName = getSessionName(currentSessionId);
+
     const onAddSession = (newSessionName: string) => {
-        setSessions(prevSession => {
-            return [...prevSession, { sessionName: newSessionName }];
-        });
+        session?.addNewSession(newSessionName);
     };
     return (
         <>
-            <SessionSelector sessions={sessions} />
+            <SessionSelector
+                sessionNames={sessionNames}
+                getSessionId={getSessionId}
+                currentSessionName={currentSessionName}
+            />
             <NewSession onAddSession={onAddSession} />
         </>
     );

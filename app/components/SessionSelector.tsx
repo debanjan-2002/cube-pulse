@@ -3,29 +3,38 @@ import {
     SelectContent,
     SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select";
+import { redirect } from "next/navigation";
 
 interface SessionSelectorProps {
-    sessions: { sessionName: string }[];
+    sessionNames: string[];
+    getSessionId: (sessionName: string) => string;
+    currentSessionName: string;
 }
 
-export default function SessionSelector({ sessions }: SessionSelectorProps) {
+export default function SessionSelector({
+    sessionNames,
+    currentSessionName,
+    getSessionId
+}: SessionSelectorProps) {
     return (
-        <Select defaultValue={sessions[0].sessionName}>
+        <Select
+            defaultValue={currentSessionName}
+            onValueChange={sessionName => {
+                const id = getSessionId(sessionName);
+                redirect(`/timer/${id}`);
+            }}
+        >
             <SelectTrigger className="w-[280px]">
                 <SelectValue placeholder="Select session" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    {sessions.map(session => (
-                        <SelectItem
-                            value={session.sessionName}
-                            key={session.sessionName}
-                        >
-                            {session.sessionName}
+                    {sessionNames.map(name => (
+                        <SelectItem value={name} key={name}>
+                            {name}
                         </SelectItem>
                     ))}
                 </SelectGroup>

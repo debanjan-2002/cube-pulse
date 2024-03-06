@@ -2,10 +2,11 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { useSession } from "../contexts/SessionContext";
+import { useTimer } from "../hooks/useTimer";
 
 const CurrentTimes = () => {
-    const session = useSession();
+    const timer = useTimer();
+    const currentSessionTimes = timer.getSessionTimes();
 
     return (
         <ScrollArea className="w-full rounded-md border">
@@ -13,7 +14,7 @@ const CurrentTimes = () => {
                 <h4 className="mb-8 font-medium leading-none text-center">
                     Current Session
                 </h4>
-                {session?.sessionTimes.map((time, i) => (
+                {currentSessionTimes.map((time, i) => (
                     <>
                         <div key={i} className="text-center">
                             {time}

@@ -3,7 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useSession } from "../contexts/SessionContext";
-import { useTimerAverages } from "../hooks/useTimerAverages";
+import { useTimer } from "../hooks/useTimer";
+import { useParams } from "next/navigation";
 
 const Timer = () => {
     const [isTimerRunning, setIsTimerRunning] = useState(false);
@@ -11,7 +12,8 @@ const Timer = () => {
     const [miliseconds, setMiliseconds] = useState(0);
 
     const session = useSession();
-    const { getAverageOfFive, getAverageOfTwelve } = useTimerAverages();
+    const { sessionId } = useParams<{ sessionId: string }>();
+    const { getAverageOfFive, getAverageOfTwelve } = useTimer();
 
     // TODO: Have to figure out the type
     const milisecondsRef = useRef<any>(null);
@@ -29,7 +31,7 @@ const Timer = () => {
             setIsTimerRunning(false);
 
             const time = `${seconds}.${miliseconds.toString().slice(0, 2)}`;
-            session?.updateSessionTimes(time);
+            session?.addTimeToCurrentSession(sessionId, time);
         } else {
             setSeconds(0);
             setMiliseconds(0);
