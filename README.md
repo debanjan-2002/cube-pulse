@@ -1,3 +1,3 @@
 # CubePulse
 
-![App Screenshot](./public/scrrenshot2.PNG)
+![App Screenshot](./public/screenshot2.PNG)
