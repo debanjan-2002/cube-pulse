@@ -78,6 +78,8 @@ export const SessionProvider = (props: SessionProviderProps) => {
     };
 
     const addNewSession = (sessionName: string) => {
+        if (sessionNameToId.has(sessionName)) return;
+
         const id = uuid4();
 
         setLocalData(prevState => {
