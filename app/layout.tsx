@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Cube Timer",
+    title: "CubePulse",
     description: "CS Timer alternative"
 };
 
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${roboto.className} h-screen flex`}>
+            <body className={`${roboto.className} h-screen flex dark`}>
                 <SessionProvider>
                     {children}
                     <Toaster />
