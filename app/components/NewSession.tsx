@@ -9,7 +9,6 @@ interface NewSessionProps {
 export default function NewSession(props: NewSessionProps) {
     const [sessionName, setSessionName] = useState("");
     const addNewSessionHandler = () => {
-        if (sessionName.trim() === "") return;
         props.onAddSession(sessionName);
         setSessionName("");
     };

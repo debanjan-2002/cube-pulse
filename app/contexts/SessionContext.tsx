@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useState, useContext } from "react";
+import toast from "react-hot-toast";
 import { v4 as uuid4 } from "uuid";
 
 interface SessionProviderProps {
@@ -78,7 +79,14 @@ export const SessionProvider = (props: SessionProviderProps) => {
     };
 
     const addNewSession = (sessionName: string) => {
-        if (sessionNameToId.has(sessionName)) return;
+        if (sessionName.trim() === "") {
+            toast.error("Please provide a session name!");
+            return;
+        }
+        if (sessionNameToId.has(sessionName)) {
+            toast.error(`${sessionName} already exists!`);
+            return;
+        }
 
         const id = uuid4();
 
@@ -111,6 +119,7 @@ export const SessionProvider = (props: SessionProviderProps) => {
             );
             return newState;
         });
+        toast.success("Session added successfully!");
     };
 
     return (
