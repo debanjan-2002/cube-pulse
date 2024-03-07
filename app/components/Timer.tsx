@@ -4,16 +4,24 @@ import React, { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useSession } from "../contexts/SessionContext";
 import { useTimer } from "../hooks/useTimer";
-import { useParams } from "next/navigation";
 
 const Timer = () => {
+    const {
+        getAverageOfFive,
+        getAverageOfTwelve,
+        getCurrentSessionId,
+        getLatestTimeInSession
+    } = useTimer();
+
+    const { latestSeconds, latestMiliseconds } = getLatestTimeInSession();
+
     const [isTimerRunning, setIsTimerRunning] = useState(false);
-    const [seconds, setSeconds] = useState(0);
-    const [miliseconds, setMiliseconds] = useState(0);
+    const [seconds, setSeconds] = useState(latestSeconds);
+    const [miliseconds, setMiliseconds] = useState(latestMiliseconds);
 
     const session = useSession();
-    const { sessionId } = useParams<{ sessionId: string }>();
-    const { getAverageOfFive, getAverageOfTwelve } = useTimer();
+
+    const sessionId = getCurrentSessionId();
 
     // TODO: Have to figure out the type
     const milisecondsRef = useRef<any>(null);
@@ -51,19 +59,20 @@ const Timer = () => {
     });
 
     return (
-        <div className="p-4 flex-1 flex justify-center items-center bg-late-100 flex-col gap-5">
+        <div className="p-4 flex-1 flex justify-center items-center bg-late-100 flex-col gap-5 bg-slate-900">
             <div className="text-[12rem]">
-                {seconds}.{miliseconds.toString().slice(0, 2)}
+                {seconds}.
+                {miliseconds === 0 ? "00" : miliseconds.toString().slice(0, 2)}
             </div>
             <div className="flex flex-col gap-3">
                 <Badge
-                    className="text-4xl min-w-28 flex justify-center p-2 px-4"
+                    className="text-4xl min-w-28 flex justify-center p-2 px-4 font-thin text-blue-600"
                     variant={"secondary"}
                 >
                     ao5: {getAverageOfFive()}
                 </Badge>
                 <Badge
-                    className="text-4xl min-w-28 flex justify-center p-2 px-4"
+                    className="text-4xl min-w-28 flex justify-center p-2 px-4 font-thin text-blue-600"
                     variant={"secondary"}
                 >
                     ao12: {getAverageOfTwelve()}

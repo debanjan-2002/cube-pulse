@@ -87,6 +87,30 @@ export const useTimer = () => {
         return avg.toFixed(2).toString();
     };
 
+    const getLatestTimeInSession = () => {
+        const sessionTimes = getSessionTimes();
+        if (sessionTimes.length !== 0) {
+            const latestTime = sessionTimes[0];
+
+            const decimalIndex = latestTime.indexOf(".");
+            const latestMiliseconds = parseInt(
+                latestTime.substring(decimalIndex + 1)
+            );
+            const latestSeconds = parseInt(
+                latestTime.substring(0, decimalIndex)
+            );
+
+            return {
+                latestSeconds,
+                latestMiliseconds
+            };
+        }
+        return {
+            latestSeconds: 0,
+            latestMiliseconds: 0
+        };
+    };
+
     return {
         getAverageOfFive,
         getAverageOfTwelve,
@@ -94,6 +118,7 @@ export const useTimer = () => {
         getSessionNames,
         getSessionId,
         getCurrentSessionId,
-        getSessionName
+        getSessionName,
+        getLatestTimeInSession
     };
 };
