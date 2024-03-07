@@ -1,3 +1,3 @@
-# Cube Timer
+# CubePulse
 
-![App Screenshot](./public/app.PNG)
+![App Screenshot](./public/scrrenshot2.PNG)
