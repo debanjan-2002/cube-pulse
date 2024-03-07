@@ -4,6 +4,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useTimer } from "../hooks/useTimer";
 
+import { v4 as uuid4 } from "uuid";
+
 const CurrentTimes = () => {
     const timer = useTimer();
     const currentSessionTimes = timer.getSessionTimes();
@@ -15,12 +17,10 @@ const CurrentTimes = () => {
                     Current Session
                 </h4>
                 {currentSessionTimes.map((time, i) => (
-                    <>
-                        <div key={i} className="text-center">
-                            {time}
-                        </div>
+                    <div key={uuid4()}>
+                        <div className="text-center">{time}</div>
                         <Separator className="my-4" />
-                    </>
+                    </div>
                 ))}
             </div>
         </ScrollArea>
