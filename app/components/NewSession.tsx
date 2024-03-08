@@ -1,15 +1,16 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { useSession } from "../contexts/SessionContext";
 
-interface NewSessionProps {
-    onAddSession: (sessionName: string) => void;
-}
-
-export default function NewSession(props: NewSessionProps) {
+export default function NewSession() {
     const [sessionName, setSessionName] = useState("");
+    const session = useSession();
+
     const addNewSessionHandler = () => {
-        props.onAddSession(sessionName);
+        session?.addNewSession(sessionName);
         setSessionName("");
     };
     return (

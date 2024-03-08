@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Select,
     SelectContent,
@@ -7,18 +9,20 @@ import {
     SelectValue
 } from "@/components/ui/select";
 import { redirect } from "next/navigation";
+import { useTimer } from "../hooks/useTimer";
 
-interface SessionSelectorProps {
-    sessionNames: string[];
-    getSessionId: (sessionName: string) => string;
-    currentSessionName: string;
-}
+export default function SessionSelector() {
+    const {
+        getSessionNames,
+        getSessionId,
+        getCurrentSessionId,
+        getSessionName
+    } = useTimer();
 
-export default function SessionSelector({
-    sessionNames,
-    currentSessionName,
-    getSessionId
-}: SessionSelectorProps) {
+    const sessionNames = getSessionNames();
+    const currentSessionId = getCurrentSessionId();
+    const currentSessionName = getSessionName(currentSessionId);
+
     return (
         <Select
             defaultValue={currentSessionName}
