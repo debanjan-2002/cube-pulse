@@ -133,6 +133,11 @@ export const useTimer = () => {
         };
     };
 
+    const getSolveCountInSession = () => {
+        const sessionTimes = getSessionTimes();
+        return sessionTimes.length;
+    };
+
     return {
         getAverageOfFive,
         getAverageOfTwelve,
@@ -142,6 +147,7 @@ export const useTimer = () => {
         getCurrentSessionId,
         getSessionName,
         getLatestTimeInSession,
-        getLatestTimeChange
+        getLatestTimeChange,
+        getSolveCountInSession
     };
 };
