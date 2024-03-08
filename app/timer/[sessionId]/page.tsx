@@ -1,11 +1,15 @@
 import SideBar from "../../components/SideBar";
 import Timer from "../../components/Timer";
+import Scramble from "../../components/Scramble";
 
 const page = () => {
     return (
         <>
             <SideBar />
-            <Timer />
+            <div className="flex flex-col w-full">
+                <Scramble />
+                <Timer />
+            </div>
         </>
     );
 };

@@ -3,6 +3,7 @@
 import { createContext, useState, useContext } from "react";
 import toast from "react-hot-toast";
 import { v4 as uuid4 } from "uuid";
+import { generateRandomScramble } from "../utils/scrambler";
 
 interface SessionProviderProps {
     children?: React.ReactNode;
@@ -12,6 +13,8 @@ interface SessionContextType {
     data: LocalStorageType[];
     sessionIdToName: Map<string, string>;
     sessionNameToId: Map<string, string>;
+    scramble: string;
+    updateScramble: () => void;
     addTimeToCurrentSession: (sessionId: string, time: string) => void;
     addNewSession: (sessionName: string) => void;
 }
@@ -63,6 +66,7 @@ export const SessionProvider = (props: SessionProviderProps) => {
         useState<Map<string, string>>(idToName);
     const [sessionNameToId, setSessionNameToId] =
         useState<Map<string, string>>(nameToId);
+    const [scramble, setScramble] = useState(generateRandomScramble());
 
     const addTimeToCurrentSession = (sessionId: string, time: string) => {
         setLocalData(prevState => {
@@ -122,12 +126,18 @@ export const SessionProvider = (props: SessionProviderProps) => {
         toast.success("Session added successfully!");
     };
 
+    const updateScramble = () => {
+        setScramble(generateRandomScramble());
+    };
+
     return (
         <SessionContext.Provider
             value={{
                 data: localData,
                 sessionIdToName,
                 sessionNameToId,
+                scramble,
+                updateScramble,
                 addTimeToCurrentSession,
                 addNewSession
             }}

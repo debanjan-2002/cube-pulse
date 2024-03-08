@@ -39,6 +39,8 @@ const Timer = () => {
             clearInterval(milisecondsRef.current);
             setIsTimerRunning(false);
 
+            session?.updateScramble();
+
             const time = `${seconds}.${miliseconds.toString().slice(0, 2)}`;
             session?.addTimeToCurrentSession(sessionId, time);
         } else {
@@ -59,9 +61,9 @@ const Timer = () => {
             window.removeEventListener("keydown", keyDownHandler);
         };
     });
-    console.log(miliseconds);
+
     return (
-        <div className="p-4 flex-1 flex justify-center items-center bg-late-100 flex-col gap-5 bg-slate-900">
+        <div className="p-4 flex-1 flex justify-center items-center bg-late-100 flex-col gap-5 bg-slate-900 w-full">
             <div className="text-[10rem] space-x-3">
                 <span>
                     {seconds}.
