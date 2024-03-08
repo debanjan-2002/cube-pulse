@@ -111,6 +111,28 @@ export const useTimer = () => {
         };
     };
 
+    const getLatestTimeChange = () => {
+        const sessionTimes = getSessionTimes();
+        if (sessionTimes.length < 2) {
+            return {
+                difference: (0.0).toFixed(2),
+                isBetter: false
+            };
+        }
+
+        const lastTime = parseFloat(sessionTimes[0]);
+        const secondLastTime = parseFloat(sessionTimes[1]);
+        const difference = lastTime - secondLastTime;
+
+        const isBetter = difference >= 0 ? false : true;
+        const absoluteDifference = Math.abs(difference);
+
+        return {
+            difference: absoluteDifference.toFixed(2),
+            isBetter
+        };
+    };
+
     return {
         getAverageOfFive,
         getAverageOfTwelve,
@@ -119,6 +141,7 @@ export const useTimer = () => {
         getSessionId,
         getCurrentSessionId,
         getSessionName,
-        getLatestTimeInSession
+        getLatestTimeInSession,
+        getLatestTimeChange
     };
 };

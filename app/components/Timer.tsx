@@ -10,18 +10,19 @@ const Timer = () => {
         getAverageOfFive,
         getAverageOfTwelve,
         getCurrentSessionId,
-        getLatestTimeInSession
+        getLatestTimeInSession,
+        getLatestTimeChange
     } = useTimer();
 
     const { latestSeconds, latestMiliseconds } = getLatestTimeInSession();
+    const { difference, isBetter } = getLatestTimeChange();
+    const sessionId = getCurrentSessionId();
 
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [seconds, setSeconds] = useState(latestSeconds);
     const [miliseconds, setMiliseconds] = useState(latestMiliseconds);
 
     const session = useSession();
-
-    const sessionId = getCurrentSessionId();
 
     // TODO: Have to figure out the type
     const milisecondsRef = useRef<any>(null);
@@ -50,6 +51,7 @@ const Timer = () => {
             }, 10);
         }
     };
+
     useEffect(() => {
         window.addEventListener("keydown", keyDownHandler);
 
@@ -57,12 +59,26 @@ const Timer = () => {
             window.removeEventListener("keydown", keyDownHandler);
         };
     });
-
+    console.log(miliseconds);
     return (
         <div className="p-4 flex-1 flex justify-center items-center bg-late-100 flex-col gap-5 bg-slate-900">
-            <div className="text-[12rem]">
-                {seconds}.
-                {miliseconds === 0 ? "00" : miliseconds.toString().slice(0, 2)}
+            <div className="text-[10rem] space-x-3">
+                <span>
+                    {seconds}.
+                    {miliseconds === 0
+                        ? "00"
+                        : miliseconds.toString().slice(0, 2)}
+                </span>
+                {!isTimerRunning && (
+                    <span
+                        className={`text-3xl ${
+                            isBetter ? `text-green-500` : `text-red-500`
+                        } `}
+                    >
+                        ({isBetter ? "-" : "+"}
+                        {difference})
+                    </span>
+                )}
             </div>
             <div className="flex flex-col gap-3">
                 <Badge
