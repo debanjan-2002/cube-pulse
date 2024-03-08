@@ -66,7 +66,7 @@ const Timer = () => {
         <div className="p-4 flex-1 flex justify-center items-center bg-late-100 flex-col gap-5 bg-slate-900 w-full">
             <div className="text-[10rem] space-x-3">
                 <span>
-                    {seconds}.
+                    <span className="text-[13rem]">{seconds}</span>.
                     {miliseconds === 0
                         ? "00"
                         : miliseconds.toString().slice(0, 2)}

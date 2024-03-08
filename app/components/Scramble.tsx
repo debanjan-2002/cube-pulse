@@ -7,7 +7,7 @@ const Scramble = () => {
     const scramble = session?.scramble;
 
     return (
-        <div className="p-6 text-4xl text-center whitespace-pre-wrap">
+        <div className="p-6 text-4xl text-center whitespace-pre-wrap leading-tight">
             {scramble}
         </div>
     );
