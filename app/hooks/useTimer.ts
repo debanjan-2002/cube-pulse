@@ -44,8 +44,8 @@ export const useTimer = () => {
 
         const currentSessionTimes: string[] = [];
         if (currentSessionData) {
-            currentSessionData[0].sessionTimes.forEach(time => {
-                currentSessionTimes.push(time);
+            currentSessionData[0].sessionTimes.forEach(data => {
+                currentSessionTimes.push(data.time);
             });
         }
         return currentSessionTimes;

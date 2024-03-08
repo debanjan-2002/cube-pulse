@@ -21,7 +21,7 @@ interface SessionContextType {
 
 interface LocalStorageType {
     sessionId: string;
-    sessionTimes: string[];
+    sessionTimes: { time: string; id: string }[];
 }
 
 export const SessionContext = createContext<SessionContextType | null>(null);
@@ -74,7 +74,7 @@ export const SessionProvider = (props: SessionProviderProps) => {
                 if (state.sessionId !== sessionId) return state;
                 return {
                     sessionId: state.sessionId,
-                    sessionTimes: [time, ...state.sessionTimes]
+                    sessionTimes: [{ time, id: uuid4() }, ...state.sessionTimes]
                 };
             });
             localStorage.setItem("sessionData", JSON.stringify(newState));
