@@ -51,6 +51,17 @@ export const useTimer = () => {
         return currentSessionTimes;
     };
 
+    const getSessionTimesAndId = () => {
+        if (!session) return [];
+
+        const currentSessionData = session.data.filter(sessionData => {
+            return sessionData.sessionId === sessionId;
+        });
+        if (currentSessionData.length === 0) return [];
+
+        return currentSessionData[0].sessionTimes;
+    };
+
     const getAverageOfFive = () => {
         const currentSessionTimes = getSessionTimes();
 
@@ -148,6 +159,7 @@ export const useTimer = () => {
         getSessionName,
         getLatestTimeInSession,
         getLatestTimeChange,
-        getSolveCountInSession
+        getSolveCountInSession,
+        getSessionTimesAndId
     };
 };

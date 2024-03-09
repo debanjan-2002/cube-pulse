@@ -24,6 +24,9 @@ const Timer = () => {
 
     const session = useSession();
 
+    console.log(latestSeconds);
+    console.log(latestMiliseconds);
+
     // TODO: Have to figure out the type
     const milisecondsRef = useRef<any>(null);
 
@@ -65,12 +68,22 @@ const Timer = () => {
     return (
         <div className="p-4 flex-1 flex justify-center items-center bg-late-100 flex-col gap-5 bg-slate-900 w-full">
             <div className="text-[10rem] space-x-3">
-                <span>
-                    <span className="text-[13rem]">{seconds}</span>.
-                    {miliseconds === 0
-                        ? "00"
-                        : miliseconds.toString().slice(0, 2)}
-                </span>
+                {isTimerRunning ? (
+                    <span>
+                        <span className="text-[13rem]">{seconds}</span>.
+                        {miliseconds === 0
+                            ? "00"
+                            : miliseconds.toString().slice(0, 2)}
+                    </span>
+                ) : (
+                    <span>
+                        <span className="text-[13rem]">{latestSeconds}</span>.
+                        {latestMiliseconds === 0
+                            ? "00"
+                            : latestMiliseconds.toString().slice(0, 2)}
+                    </span>
+                )}
+
                 {!isTimerRunning && (
                     <span
                         className={`text-3xl ${
