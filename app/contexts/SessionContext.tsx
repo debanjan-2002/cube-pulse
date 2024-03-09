@@ -15,7 +15,11 @@ interface SessionContextType {
     sessionNameToId: Map<string, string>;
     scramble: string;
     updateScramble: () => void;
-    addTimeToCurrentSession: (sessionId: string, time: string) => void;
+    addTimeToCurrentSession: (
+        sessionId: string,
+        time: string,
+        scramble: string
+    ) => void;
     addNewSession: (sessionName: string) => void;
     deleteTimeFromCurrentSession: (sessionId: string, timeId: string) => void;
 }
@@ -69,13 +73,20 @@ export const SessionProvider = (props: SessionProviderProps) => {
         useState<Map<string, string>>(nameToId);
     const [scramble, setScramble] = useState(generateRandomScramble());
 
-    const addTimeToCurrentSession = (sessionId: string, time: string) => {
+    const addTimeToCurrentSession = (
+        sessionId: string,
+        time: string,
+        scramble: string
+    ) => {
         setLocalData(prevState => {
             const newState = prevState.map(state => {
                 if (state.sessionId !== sessionId) return state;
                 return {
                     sessionId: state.sessionId,
-                    sessionTimes: [{ time, id: uuid4() }, ...state.sessionTimes]
+                    sessionTimes: [
+                        { time, id: uuid4(), scramble },
+                        ...state.sessionTimes
+                    ]
                 };
             });
             localStorage.setItem("sessionData", JSON.stringify(newState));

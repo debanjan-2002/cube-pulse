@@ -24,9 +24,6 @@ const Timer = () => {
 
     const session = useSession();
 
-    console.log(latestSeconds);
-    console.log(latestMiliseconds);
-
     // TODO: Have to figure out the type
     const milisecondsRef = useRef<any>(null);
 
@@ -45,7 +42,7 @@ const Timer = () => {
             session?.updateScramble();
 
             const time = `${seconds}.${miliseconds.toString().slice(0, 2)}`;
-            session?.addTimeToCurrentSession(sessionId, time);
+            session?.addTimeToCurrentSession(sessionId, time, session.scramble);
         } else {
             setSeconds(0);
             setMiliseconds(0);
