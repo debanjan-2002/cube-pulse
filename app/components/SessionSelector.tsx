@@ -14,20 +14,20 @@ import { useTimer } from "../hooks/useTimer";
 export default function SessionSelector() {
     const {
         getSessionNames,
-        getSessionId,
+        getSessionIdByName,
         getCurrentSessionId,
-        getSessionName
+        getSessionNameById
     } = useTimer();
 
     const sessionNames = getSessionNames();
     const currentSessionId = getCurrentSessionId();
-    const currentSessionName = getSessionName(currentSessionId);
+    const currentSessionName = getSessionNameById(currentSessionId);
 
     return (
         <Select
             defaultValue={currentSessionName}
             onValueChange={sessionName => {
-                const id = getSessionId(sessionName);
+                const id = getSessionIdByName(sessionName);
                 redirect(`/timer/${id}`);
             }}
         >

@@ -14,12 +14,13 @@ export const useTimer = () => {
         return sessionNames;
     };
 
-    const getSessionId = (sessionName: string) => {
-        const sessionId = session?.sessionNameToId.get(sessionName) || "";
+    const getSessionIdByName = (sessionName: string) => {
+        if (!session) return "";
+        const sessionId = session.sessionNameToId.get(sessionName);
         return sessionId;
     };
 
-    const getSessionName = (sessionId: string) => {
+    const getSessionNameById = (sessionId: string) => {
         if (!session) return "";
         const sessionName = session.sessionIdToName.get(sessionId);
 
@@ -154,9 +155,9 @@ export const useTimer = () => {
         getAverageOfTwelve,
         getSessionTimes,
         getSessionNames,
-        getSessionId,
+        getSessionIdByName,
         getCurrentSessionId,
-        getSessionName,
+        getSessionNameById,
         getLatestTimeInSession,
         getLatestTimeChange,
         getSolveCountInSession,
