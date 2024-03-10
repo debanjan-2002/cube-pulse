@@ -20,6 +20,7 @@ const CurrentTimes = () => {
                         time={data.time}
                         id={data.id}
                         key={data.id}
+                        scramble={data.scramble}
                     />
                 ))}
             </div>

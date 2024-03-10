@@ -1,26 +1,45 @@
 import { Separator } from "@/components/ui/separator";
-import React from "react";
+import React, { useState } from "react";
 import { useSession } from "../contexts/SessionContext";
 import { useTimer } from "../hooks/useTimer";
+import Modal from "./Modal";
 
 interface CurrentTimeDisplayProps {
     time: string;
     id: string;
+    scramble: string;
 }
 
-const CurrentTimeDisplay = ({ time, id }: CurrentTimeDisplayProps) => {
+const CurrentTimeDisplay = ({
+    time,
+    id,
+    scramble
+}: CurrentTimeDisplayProps) => {
+    const [open, setOpen] = useState(false);
     const session = useSession();
     const { getCurrentSessionId } = useTimer();
 
-    const timeDeleteHandler = () => {
-        session?.deleteTimeFromCurrentSession(getCurrentSessionId(), id);
+    const onTimeDelete = (timeId: string) => {
+        session?.deleteTimeFromCurrentSession(getCurrentSessionId(), timeId);
+    };
+    const modalHandler = () => {
+        setOpen(!open);
     };
 
     return (
-        <div onClick={timeDeleteHandler}>
-            <div className="text-center">{time}</div>
-            <Separator className="my-4" />
-        </div>
+        <>
+            <div onClick={modalHandler} className="cursor-pointer">
+                <Modal
+                    open={open}
+                    id={id}
+                    time={time}
+                    scramble={scramble}
+                    onClickHandler={onTimeDelete}
+                />
+                <div className="text-center">{time}</div>
+                <Separator className="my-4" />
+            </div>
+        </>
     );
 };
 
