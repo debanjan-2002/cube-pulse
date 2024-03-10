@@ -26,7 +26,7 @@ interface SessionContextType {
 
 interface LocalStorageType {
     sessionId: string;
-    sessionTimes: { time: string; id: string }[];
+    sessionTimes: { time: string; id: string; scramble: string }[];
 }
 
 export const SessionContext = createContext<SessionContextType | null>(null);
