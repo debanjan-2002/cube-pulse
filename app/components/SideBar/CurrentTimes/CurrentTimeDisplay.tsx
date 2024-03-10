@@ -9,13 +9,15 @@ interface CurrentTimeDisplayProps {
     id: string;
     scramble: string;
     solveNumber: number;
+    date: Date;
 }
 
 const CurrentTimeDisplay = ({
     time,
     id,
     scramble,
-    solveNumber
+    solveNumber,
+    date
 }: CurrentTimeDisplayProps) => {
     const [open, setOpen] = useState(false);
     const session = useSession();
@@ -35,6 +37,7 @@ const CurrentTimeDisplay = ({
                     open={open}
                     id={id}
                     time={time}
+                    date={date}
                     scramble={scramble}
                     solveNumber={solveNumber}
                     onClickHandler={onTimeDelete}

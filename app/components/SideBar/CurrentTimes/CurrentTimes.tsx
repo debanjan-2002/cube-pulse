@@ -65,6 +65,7 @@ const CurrentTimes = () => {
                         time={data.time}
                         id={data.id}
                         key={data.id}
+                        date={data.date}
                         solveNumber={currentSessionTimes.length - i}
                         scramble={data.scramble}
                     />
