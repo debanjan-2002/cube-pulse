@@ -5,11 +5,13 @@ import { useTimer } from "../hooks/useTimer";
 import CurrentTimeDisplay from "./CurrentTimeDisplay";
 import { Badge } from "@/components/ui/badge";
 import { useSession } from "../contexts/SessionContext";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const CurrentTimes = () => {
     const session = useSession();
     const router = useRouter();
+    const pathname = usePathname().split("/");
+
     const {
         getSessionTimesAndId,
         getSolveCountInSession,
@@ -32,11 +34,22 @@ const CurrentTimes = () => {
                         <Badge
                             className="w-fit cursor-pointer text-sm"
                             variant={"secondary"}
-                            onClick={() =>
-                                router.push(`/timer/${sessionId}/analytics`)
-                            }
+                            onClick={() => {
+                                if (
+                                    pathname[pathname.length - 1] ===
+                                    "analytics"
+                                ) {
+                                    router.push(`/timer/${sessionId}`);
+                                } else {
+                                    router.push(
+                                        `/timer/${sessionId}/analytics`
+                                    );
+                                }
+                            }}
                         >
-                            Analytics
+                            {pathname[pathname.length - 1] === "analytics"
+                                ? "Timer"
+                                : "Analytics"}
                         </Badge>
                         <Badge
                             className="w-fit cursor-pointer text-sm"
