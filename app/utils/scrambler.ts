@@ -1,8 +1,17 @@
 export const generateRandomScramble = () => {
     const availableMoves = ["R", "L", "U", "D", "F", "B"];
+    const opposites = new Map([
+        ["R", "L"],
+        ["L", "R"],
+        ["U", "D"],
+        ["D", "U"],
+        ["F", "B"],
+        ["B", "F"]
+    ]);
     const turn = ["'", "2", ""];
     const scrambleLength = 20;
     let lastRandomIndex = -1;
+    let secondLastRandomIndex = -1;
 
     let scramble = "";
 
@@ -12,7 +21,12 @@ export const generateRandomScramble = () => {
             Math.random() * availableMoves.length
         );
 
-        while (randomMovesIndex === lastRandomIndex) {
+        while (
+            randomMovesIndex === lastRandomIndex ||
+            (randomMovesIndex === secondLastRandomIndex &&
+                opposites.get(availableMoves[randomMovesIndex]) ===
+                    availableMoves[lastRandomIndex])
+        ) {
             randomMovesIndex = Math.floor(
                 Math.random() * availableMoves.length
             );
@@ -23,6 +37,7 @@ export const generateRandomScramble = () => {
         const currNotation = `${currMove}${currTurn}`;
         scramble += `${currNotation}  `;
 
+        secondLastRandomIndex = lastRandomIndex;
         lastRandomIndex = randomMovesIndex;
     }
 
