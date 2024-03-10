@@ -1,4 +1,4 @@
-import SideBar from "@/app/components/SideBar";
+import SideBar from "@/app/components/SideBar/SideBar";
 import React from "react";
 
 const TimerLayout = ({ children }: { children: React.ReactNode }) => {

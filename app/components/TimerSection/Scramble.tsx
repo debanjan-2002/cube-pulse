@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "../contexts/SessionContext";
+import { useSession } from "../../contexts/SessionContext";
 
 const Scramble = () => {
     const session = useSession();

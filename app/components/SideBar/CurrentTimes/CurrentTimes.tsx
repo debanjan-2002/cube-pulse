@@ -1,10 +1,10 @@
 "use client";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTimer } from "../hooks/useTimer";
+import { useTimer } from "../../../hooks/useTimer";
 import CurrentTimeDisplay from "./CurrentTimeDisplay";
 import { Badge } from "@/components/ui/badge";
-import { useSession } from "../contexts/SessionContext";
+import { useSession } from "../../../contexts/SessionContext";
 import { useRouter, usePathname } from "next/navigation";
 
 const CurrentTimes = () => {

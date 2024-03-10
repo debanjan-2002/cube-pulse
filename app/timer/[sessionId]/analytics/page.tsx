@@ -1,4 +1,4 @@
-import AnalyticsHeader from "@/app/components/AnalyticsHeader";
+import AnalyticsHeader from "@/app/components/Analytics/AnalyticsHeader";
 import React from "react";
 
 const page = () => {

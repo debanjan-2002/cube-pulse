@@ -2,8 +2,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { useSession } from "../contexts/SessionContext";
-import { useTimer } from "../hooks/useTimer";
+import { useSession } from "../../contexts/SessionContext";
+import { useTimer } from "../../hooks/useTimer";
 
 const Timer = () => {
     const {

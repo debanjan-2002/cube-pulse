@@ -1,5 +1,5 @@
-import Timer from "../../components/Timer";
-import Scramble from "../../components/Scramble";
+import Timer from "../../components/TimerSection/Timer";
+import Scramble from "../../components/TimerSection/Scramble";
 
 const page = () => {
     return (

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import CurrentTimes from "./CurrentTimes";
-import Session from "./Session";
+import CurrentTimes from "./CurrentTimes/CurrentTimes";
+import Session from "./Session/Session";
 import logo from "../../public/logo.jpg";
 
 const SideBar = () => {

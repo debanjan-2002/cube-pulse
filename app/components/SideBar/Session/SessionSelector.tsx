@@ -9,7 +9,7 @@ import {
     SelectValue
 } from "@/components/ui/select";
 import { redirect } from "next/navigation";
-import { useTimer } from "../hooks/useTimer";
+import { useTimer } from "../../../hooks/useTimer";
 
 export default function SessionSelector() {
     const {

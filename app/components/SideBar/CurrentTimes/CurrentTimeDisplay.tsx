@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import React, { useState } from "react";
-import { useSession } from "../contexts/SessionContext";
-import { useTimer } from "../hooks/useTimer";
+import { useSession } from "../../../contexts/SessionContext";
+import { useTimer } from "../../../hooks/useTimer";
 import Modal from "./Modal";
 
 interface CurrentTimeDisplayProps {
