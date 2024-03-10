@@ -20,7 +20,7 @@ interface SessionContextType {
         time: string,
         scramble: string
     ) => void;
-    addNewSession: (sessionName: string) => void;
+    addNewSession: (sessionName: string) => { id: string; error: boolean };
     deleteTimeFromCurrentSession: (sessionId: string, timeId: string) => void;
 }
 
@@ -117,11 +117,17 @@ export const SessionProvider = (props: SessionProviderProps) => {
     const addNewSession = (sessionName: string) => {
         if (sessionName.trim() === "") {
             toast.error("Please provide a session name!");
-            return;
+            return {
+                id: "",
+                error: true
+            };
         }
         if (sessionNameToId.has(sessionName)) {
             toast.error(`${sessionName} already exists!`);
-            return;
+            return {
+                id: "",
+                error: true
+            };
         }
 
         const id = uuid4();
@@ -156,6 +162,10 @@ export const SessionProvider = (props: SessionProviderProps) => {
             return newState;
         });
         toast.success("Session added successfully!");
+        return {
+            id,
+            error: false
+        };
     };
 
     const updateScramble = () => {
