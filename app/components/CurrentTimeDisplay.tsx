@@ -8,12 +8,14 @@ interface CurrentTimeDisplayProps {
     time: string;
     id: string;
     scramble: string;
+    solveNumber: number;
 }
 
 const CurrentTimeDisplay = ({
     time,
     id,
-    scramble
+    scramble,
+    solveNumber
 }: CurrentTimeDisplayProps) => {
     const [open, setOpen] = useState(false);
     const session = useSession();
@@ -34,6 +36,7 @@ const CurrentTimeDisplay = ({
                     id={id}
                     time={time}
                     scramble={scramble}
+                    solveNumber={solveNumber}
                     onClickHandler={onTimeDelete}
                 />
                 <div className="text-center">{time}</div>

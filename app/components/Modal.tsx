@@ -13,15 +13,23 @@ interface ModalProps {
     id: string;
     time: string;
     scramble: string;
+    solveNumber: number;
     onClickHandler: (timeId: string) => void;
 }
 
-const Modal = ({ open, id, time, scramble, onClickHandler }: ModalProps) => {
+const Modal = ({
+    open,
+    id,
+    time,
+    scramble,
+    onClickHandler,
+    solveNumber
+}: ModalProps) => {
     return (
         <Dialog open={open}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Solve details</DialogTitle>
+                    <DialogTitle>Solve details (#{solveNumber})</DialogTitle>
                     <DialogDescription>
                         This modal provides information about this solve
                     </DialogDescription>

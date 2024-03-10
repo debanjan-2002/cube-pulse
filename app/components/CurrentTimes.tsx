@@ -15,11 +15,12 @@ const CurrentTimes = () => {
                 <h4 className="mb-8 font-medium leading-none text-center">
                     Current Session ({solveCount})
                 </h4>
-                {currentSessionTimes.map(data => (
+                {currentSessionTimes.map((data, i) => (
                     <CurrentTimeDisplay
                         time={data.time}
                         id={data.id}
                         key={data.id}
+                        solveNumber={currentSessionTimes.length - i}
                         scramble={data.scramble}
                     />
                 ))}
