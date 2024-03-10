@@ -22,6 +22,7 @@ interface SessionContextType {
     ) => void;
     addNewSession: (sessionName: string) => { id: string; error: boolean };
     deleteTimeFromCurrentSession: (sessionId: string, timeId: string) => void;
+    deleteAllTimesFromCurrentSession: (sessionId: string) => void;
 }
 
 interface LocalStorageType {
@@ -172,6 +173,21 @@ export const SessionProvider = (props: SessionProviderProps) => {
         setScramble(generateRandomScramble());
     };
 
+    const deleteAllTimesFromCurrentSession = (sessionId: string) => {
+        setLocalData(prevState => {
+            const newState = prevState.map(state => {
+                if (state.sessionId !== sessionId) return state;
+                return {
+                    sessionId: state.sessionId,
+                    sessionTimes: []
+                };
+            });
+            localStorage.setItem("sessionData", JSON.stringify(newState));
+            return newState;
+        });
+        toast.success("Cleared session successfully!");
+    };
+
     return (
         <SessionContext.Provider
             value={{
@@ -182,7 +198,8 @@ export const SessionProvider = (props: SessionProviderProps) => {
                 updateScramble,
                 addTimeToCurrentSession,
                 addNewSession,
-                deleteTimeFromCurrentSession
+                deleteTimeFromCurrentSession,
+                deleteAllTimesFromCurrentSession
             }}
         >
             {props.children}
