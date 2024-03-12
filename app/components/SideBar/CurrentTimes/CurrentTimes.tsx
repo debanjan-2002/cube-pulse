@@ -13,11 +13,13 @@ const CurrentTimes = () => {
     const pathname = usePathname().split("/");
 
     const {
-        getSessionTimesAndId,
         getSolveCountInSession,
-        getCurrentSessionId
+        getCurrentSessionId,
+        getSessionTimesAndPR
     } = useTimer();
-    const currentSessionTimes = getSessionTimesAndId();
+
+    const currentSessionTimes = getSessionTimesAndPR();
+
     const solveCount = getSolveCountInSession();
     const sessionId = getCurrentSessionId();
 
@@ -66,6 +68,7 @@ const CurrentTimes = () => {
                         id={data.id}
                         key={data.id}
                         date={data.date}
+                        isBest={data.isBest}
                         solveNumber={currentSessionTimes.length - i}
                         scramble={data.scramble}
                     />

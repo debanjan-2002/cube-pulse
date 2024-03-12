@@ -10,12 +10,14 @@ interface CurrentTimeDisplayProps {
     scramble: string;
     solveNumber: number;
     date: Date;
+    isBest: boolean;
 }
 
 const CurrentTimeDisplay = ({
     time,
     id,
     scramble,
+    isBest,
     solveNumber,
     date
 }: CurrentTimeDisplayProps) => {
@@ -42,7 +44,13 @@ const CurrentTimeDisplay = ({
                     solveNumber={solveNumber}
                     onClickHandler={onTimeDelete}
                 />
-                <div className="text-center">{time}</div>
+                <div
+                    className={`text-center ${
+                        isBest ? `text-green-500 font-bold` : `text-white`
+                    }`}
+                >
+                    {time}
+                </div>
                 <Separator className="my-4" />
             </div>
         </>

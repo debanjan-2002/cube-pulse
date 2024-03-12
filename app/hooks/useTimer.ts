@@ -150,6 +150,27 @@ export const useTimer = () => {
         return sessionTimes.length;
     };
 
+    const getSessionTimesAndPR = () => {
+        const currentSessionTimes = getSessionTimesAndId().map(sessionTime => {
+            return { ...sessionTime, isBest: false };
+        });
+
+        let bestIndex = -1;
+        let minimumTime = Infinity;
+        for (let i = 0; i < currentSessionTimes.length; i++) {
+            if (parseFloat(currentSessionTimes[i].time) < minimumTime) {
+                minimumTime = parseFloat(currentSessionTimes[i].time);
+                bestIndex = i;
+            }
+        }
+        for (let i = 0; i < currentSessionTimes.length; i++) {
+            if (i === bestIndex) {
+                currentSessionTimes[i].isBest = true;
+            }
+        }
+        return currentSessionTimes;
+    };
+
     return {
         getAverageOfFive,
         getAverageOfTwelve,
@@ -161,6 +182,7 @@ export const useTimer = () => {
         getLatestTimeInSession,
         getLatestTimeChange,
         getSolveCountInSession,
-        getSessionTimesAndId
+        getSessionTimesAndId,
+        getSessionTimesAndPR
     };
 };
