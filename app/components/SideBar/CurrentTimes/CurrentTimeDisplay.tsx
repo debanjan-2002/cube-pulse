@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import React, { useState } from "react";
 import { useSession } from "../../../contexts/SessionContext";
 import { useTimer } from "../../../hooks/useTimer";
-import Modal from "./Modal";
+import SingleTimeModal from "./SingleTimeModal";
 
 interface CurrentTimeDisplayProps {
     time: string;
@@ -35,7 +35,7 @@ const CurrentTimeDisplay = ({
     return (
         <>
             <div onClick={modalHandler} className="cursor-pointer">
-                <Modal
+                <SingleTimeModal
                     open={open}
                     id={id}
                     time={time}

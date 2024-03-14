@@ -18,7 +18,7 @@ interface ModalProps {
     onClickHandler: (timeId: string) => void;
 }
 
-const Modal = ({
+const SingleTimeModal = ({
     open,
     id,
     time,
@@ -57,4 +57,4 @@ const Modal = ({
     );
 };
 
-export default Modal;
+export default SingleTimeModal;
