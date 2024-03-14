@@ -185,16 +185,29 @@ export const useTimer = () => {
 
     const getPRSingle = () => {
         const currentSessionTimes = getSessionTimesAndId();
-        if (currentSessionTimes.length === 0) return "--";
+        if (currentSessionTimes.length === 0) {
+            return {
+                time: "--",
+                scramble: "",
+                id: "",
+                date: new Date(),
+                solveNumber: -1
+            };
+        }
 
         let minimumTime = Infinity;
+        let bestIndex = -1;
 
         for (let i = 0; i < currentSessionTimes.length; i++) {
             if (parseFloat(currentSessionTimes[i].time) < minimumTime) {
                 minimumTime = parseFloat(currentSessionTimes[i].time);
+                bestIndex = i;
             }
         }
-        return minimumTime.toFixed(2);
+        return {
+            ...currentSessionTimes[bestIndex],
+            solveNumber: currentSessionTimes.length - bestIndex
+        };
     };
 
     return {
