@@ -32,7 +32,7 @@ const DataTableBody = () => {
         <TableBody>
             {data.map(data => (
                 <TableRow key={data.property}>
-                    <TableCell className="font-medium text-center p-3">
+                    <TableCell className="text-center p-3">
                         {data.property}
                     </TableCell>
                     <TableCell className="text-center border-x p-3">
