@@ -64,39 +64,21 @@ export const useTimer = () => {
         return currentSessionData[0].sessionTimes;
     };
 
-    const getAverageOfFive = () => {
+    const getAverage = (n: number) => {
         const currentSessionTimes = getSessionTimes();
 
-        if (currentSessionTimes.length < 5) return "--";
+        if (currentSessionTimes.length < n) return "--";
 
-        const lastFiveTimes = [];
-        for (let i = 0; i < 5; i++) {
-            lastFiveTimes.push(parseFloat(currentSessionTimes[i]));
+        const lastNTimes = [];
+        for (let i = 0; i < n; i++) {
+            lastNTimes.push(parseFloat(currentSessionTimes[i]));
         }
-        lastFiveTimes.sort((a, b) => a - b);
+        lastNTimes.sort((a, b) => a - b);
         let sum = 0;
-        for (let i = 1; i < 4; i++) {
-            sum += lastFiveTimes[i];
+        for (let i = 1; i < n - 1; i++) {
+            sum += lastNTimes[i];
         }
-        const avg = sum / 3;
-        return avg.toFixed(2).toString();
-    };
-
-    const getAverageOfTwelve = () => {
-        const currentSessionTimes = getSessionTimes();
-
-        if (currentSessionTimes.length < 12) return "--";
-
-        const lastTwelveTimes = [];
-        for (let i = 0; i < 12; i++) {
-            lastTwelveTimes.push(parseFloat(currentSessionTimes[i]));
-        }
-        lastTwelveTimes.sort((a, b) => a - b);
-        let sum = 0;
-        for (let i = 1; i < 11; i++) {
-            sum += lastTwelveTimes[i];
-        }
-        const avg = sum / 10;
+        const avg = sum / (n - 2);
         return avg.toFixed(2).toString();
     };
 
@@ -172,9 +154,21 @@ export const useTimer = () => {
         return currentSessionTimes;
     };
 
+    const getPRSingle = () => {
+        const currentSessionTimes = getSessionTimesAndId();
+        if (currentSessionTimes.length === 0) return "--";
+
+        let minimumTime = Infinity;
+
+        for (let i = 0; i < currentSessionTimes.length; i++) {
+            if (parseFloat(currentSessionTimes[i].time) < minimumTime) {
+                minimumTime = parseFloat(currentSessionTimes[i].time);
+            }
+        }
+        return minimumTime.toFixed(2);
+    };
+
     return {
-        getAverageOfFive,
-        getAverageOfTwelve,
         getSessionTimes,
         getSessionNames,
         getSessionIdByName,
@@ -184,6 +178,8 @@ export const useTimer = () => {
         getLatestTimeChange,
         getSolveCountInSession,
         getSessionTimesAndId,
-        getSessionTimesAndPR
+        getSessionTimesAndPR,
+        getPRSingle,
+        getAverage
     };
 };

@@ -7,8 +7,7 @@ import { useTimer } from "../../hooks/useTimer";
 
 const Timer = () => {
     const {
-        getAverageOfFive,
-        getAverageOfTwelve,
+        getAverage,
         getCurrentSessionId,
         getLatestTimeInSession,
         getLatestTimeChange
@@ -97,13 +96,13 @@ const Timer = () => {
                     className="text-4xl min-w-28 flex justify-center p-2 px-4 font-thin text-blue-600"
                     variant={"secondary"}
                 >
-                    ao5: {getAverageOfFive()}
+                    ao5: {getAverage(5)}
                 </Badge>
                 <Badge
                     className="text-4xl min-w-28 flex justify-center p-2 px-4 font-thin text-blue-600"
                     variant={"secondary"}
                 >
-                    ao12: {getAverageOfTwelve()}
+                    ao12: {getAverage(12)}
                 </Badge>
             </div>
         </div>
