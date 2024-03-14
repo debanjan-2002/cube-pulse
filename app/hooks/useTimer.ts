@@ -210,6 +210,33 @@ export const useTimer = () => {
         };
     };
 
+    const getDayWiseAverage = () => {
+        const currentSessionTimes = getSessionTimesAndId();
+        const dayWiseSum: Map<number, number[]> = new Map([
+            [0, [0, 0]],
+            [1, [0, 0]],
+            [2, [0, 0]],
+            [3, [0, 0]],
+            [4, [0, 0]],
+            [5, [0, 0]],
+            [6, [0, 0]]
+        ]);
+        currentSessionTimes.map(sessionTime => {
+            const day = new Date(sessionTime.date).getDay();
+            const prevSum = dayWiseSum.get(day)![0];
+            const currTime = parseFloat(sessionTime.time);
+            const prevCount = dayWiseSum.get(day)![1];
+
+            dayWiseSum.set(day, [prevSum + currTime, prevCount + 1]);
+        });
+        const averageData: string[] = [];
+
+        dayWiseSum.forEach((value, key) => {
+            averageData.push((value[0] / value[1]).toFixed(2).toString());
+        });
+        return averageData;
+    };
+
     return {
         getSessionTimes,
         getSessionNames,
@@ -223,6 +250,7 @@ export const useTimer = () => {
         getSessionTimesAndPR,
         getPRSingle,
         getAverage,
-        getAveragePR
+        getAveragePR,
+        getDayWiseAverage
     };
 };
