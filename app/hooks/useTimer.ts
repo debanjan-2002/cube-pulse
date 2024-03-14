@@ -82,6 +82,35 @@ export const useTimer = () => {
         return avg.toFixed(2).toString();
     };
 
+    const getAveragePR = (n: number) => {
+        let latestAvg = getAverage(n);
+        if (latestAvg === "--") return latestAvg;
+
+        let avg = parseFloat(latestAvg);
+        const currentSessionTimes = getSessionTimes();
+        const len = currentSessionTimes.length;
+
+        const lastNTimes = [];
+        for (let i = 0; i < n; i++) {
+            lastNTimes.push(parseFloat(currentSessionTimes[i]));
+        }
+
+        for (let i = n; i < len; i++) {
+            lastNTimes.push(parseFloat(currentSessionTimes[i]));
+            lastNTimes.shift();
+
+            const lastNTimesSorted = lastNTimes.toSorted((a, b) => a - b);
+
+            let currSum = 0;
+            for (let j = 1; j < n - 1; j++) {
+                currSum += lastNTimesSorted[j];
+            }
+            const currAvg = currSum / (n - 2);
+            avg = Math.min(avg, currAvg);
+        }
+        return avg.toFixed(2).toString();
+    };
+
     const getLatestTimeInSession = () => {
         const sessionTimes = getSessionTimes();
         if (sessionTimes.length !== 0) {
@@ -180,6 +209,7 @@ export const useTimer = () => {
         getSessionTimesAndId,
         getSessionTimesAndPR,
         getPRSingle,
-        getAverage
+        getAverage,
+        getAveragePR
     };
 };
