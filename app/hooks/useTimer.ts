@@ -32,7 +32,8 @@ export const useTimer = () => {
     };
 
     const getCurrentSessionId = () => {
-        return sessionId;
+        if (!session) return "";
+        return sessionId || session?.data[0].sessionId;
     };
 
     const getSessionTimes = () => {
