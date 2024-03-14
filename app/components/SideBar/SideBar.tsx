@@ -2,6 +2,7 @@ import Image from "next/image";
 import CurrentTimes from "./CurrentTimes/CurrentTimes";
 import Session from "./Session/Session";
 import logo from "../../../public/logo.jpg";
+import DataTable from "./CurrentTimes/DataTable";
 
 const SideBar = () => {
     return (
@@ -13,6 +14,7 @@ const SideBar = () => {
                 </div>
             </div>
             <Session />
+            <DataTable />
             <CurrentTimes />
         </div>
     );
