@@ -237,6 +237,51 @@ export const useTimer = () => {
         return averageData;
     };
 
+    const getTimeRangeData = () => {
+        const currentSessionTimes = getSessionTimes();
+        currentSessionTimes.sort((a, b) => parseFloat(a) - parseFloat(b));
+
+        const timeWiseCount: Map<number, number> = new Map([]);
+
+        currentSessionTimes.forEach(time => {
+            const currTime = parseFloat(time);
+            const floorCurrTime = Math.floor(currTime);
+            const currRangeStart =
+                floorCurrTime % 2 === 0 ? floorCurrTime : floorCurrTime - 1;
+
+            if (timeWiseCount.has(currRangeStart)) {
+                const currCount = timeWiseCount.get(currRangeStart);
+                timeWiseCount.set(currRangeStart, currCount! + 1);
+            } else {
+                timeWiseCount.set(currRangeStart, 1);
+            }
+        });
+
+        const rangeStart: number[] = [];
+        const dataCount: number[] = [];
+        const labels: string[] = [];
+
+        timeWiseCount.forEach((value, key) => {
+            rangeStart.push(key);
+            dataCount.push(value);
+        });
+
+        for (let i = 0; i < rangeStart.length; i++) {
+            let label = "";
+
+            if (i < rangeStart.length - 1) {
+                label = `>= ${rangeStart[i]} and < ${rangeStart[i + 1]}`;
+            } else {
+                label = `>= ${rangeStart[i]}`;
+            }
+            labels.push(label);
+        }
+        return {
+            labels,
+            dataCount
+        };
+    };
+
     return {
         getSessionTimes,
         getSessionNames,
@@ -251,6 +296,7 @@ export const useTimer = () => {
         getPRSingle,
         getAverage,
         getAveragePR,
-        getDayWiseAverage
+        getDayWiseAverage,
+        getTimeRangeData
     };
 };
