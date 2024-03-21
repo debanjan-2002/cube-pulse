@@ -9,14 +9,11 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend,
-    defaults
+    Legend
 } from "chart.js";
+
 import { Line } from "react-chartjs-2";
 import { useTimer } from "@/app/hooks/useTimer";
-
-defaults.maintainAspectRatio = false;
-defaults.responsive = true;
 
 ChartJS.register(
     CategoryScale,
@@ -31,19 +28,7 @@ ChartJS.register(
 export const options = {
     plugins: {
         legend: {
-            // position: "top" as const,
             display: false
-            // title: {
-            //     display: true,
-            //     font: {
-            //         size: 24
-            //     }
-            // },
-            // labels: {
-            //     font: {
-            //         size: 16
-            //     }
-            // }
         },
         title: {
             display: true,
