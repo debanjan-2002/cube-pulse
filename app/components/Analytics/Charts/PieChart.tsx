@@ -6,13 +6,12 @@ import {
     ArcElement,
     Tooltip,
     Legend,
-    defaults
+    TooltipItem
 } from "chart.js";
+
 import { Doughnut } from "react-chartjs-2";
 import { useTimer } from "@/app/hooks/useTimer";
-
-defaults.maintainAspectRatio = false;
-defaults.responsive = true;
+import { BACKGROUND_COLORS, BORDER_COLORS } from "@/app/constants/colors";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -30,6 +29,22 @@ export const options = {
             font: {
                 size: 16
             }
+        },
+        tooltip: {
+            callbacks: {
+                afterLabel: function (tooltipItem: TooltipItem<"doughnut">) {
+                    const totalSolveCount = tooltipItem.dataset.data.reduce(
+                        (acc, item) => acc + item,
+                        0
+                    );
+                    const currentRangeSolveCount = parseInt(
+                        tooltipItem.formattedValue
+                    );
+                    const percentage =
+                        (currentRangeSolveCount / totalSolveCount) * 100;
+                    return `Percentage: ${percentage.toFixed(2)}%`;
+                }
+            }
         }
     }
 };
@@ -44,22 +59,8 @@ export default function PieChart() {
             {
                 label: "Solve count",
                 data: dataCount,
-                backgroundColor: [
-                    "rgba(255, 99, 132, 0.2)",
-                    "rgba(54, 162, 235, 0.2)",
-                    "rgba(255, 206, 86, 0.2)",
-                    "rgba(75, 192, 192, 0.2)",
-                    "rgba(153, 102, 255, 0.2)",
-                    "rgba(255, 159, 64, 0.2)"
-                ],
-                borderColor: [
-                    "rgba(255, 99, 132, 1)",
-                    "rgba(54, 162, 235, 1)",
-                    "rgba(255, 206, 86, 1)",
-                    "rgba(75, 192, 192, 1)",
-                    "rgba(153, 102, 255, 1)",
-                    "rgba(255, 159, 64, 1)"
-                ],
+                backgroundColor: BACKGROUND_COLORS,
+                borderColor: BORDER_COLORS,
                 borderWidth: 1
             }
         ]
