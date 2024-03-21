@@ -13,9 +13,11 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useTimer } from "@/app/hooks/useTimer";
+import { BACKGROUND_COLORS } from "@/app/constants/colors";
 
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
+defaults.color = "#cacaca";
 
 ChartJS.register(
     CategoryScale,
@@ -76,10 +78,7 @@ export default function BarChart() {
             {
                 label: "Average Time (in sec)",
                 data: dayWiseData,
-                backgroundColor: [
-                    "rgba(255, 99, 132, 1)",
-                    "rgba(53, 162, 235, 1)"
-                ]
+                backgroundColor: BACKGROUND_COLORS
             }
         ]
     };
